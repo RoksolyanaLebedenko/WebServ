@@ -95,12 +95,12 @@ while(true)
             perror("Error send failed");
         }
       }
-        shutdown(client_socket, SHUT_RD);
+        shutdown(client_socket, SHUT_WR);
         char buf[64];
         while (read(client_socket, buf, 64) > 0);
         close(client_socket);
     }
-    shutdown(listen_socket, SHUT_WR);
+    shutdown(listen_socket, SHUT_RD);
     char buf[64];
     while (read(listen_socket, buf, 64) > 0);
     close(listen_socket);
