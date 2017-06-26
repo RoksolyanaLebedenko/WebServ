@@ -94,9 +94,15 @@ while(true)
         if (result < 0) {
             perror("Error send failed");
         }
-      } //! TODO -- correct sockets closing
+      }
+        shutdown(client_socket, SHUT_RD);
+        char buf[64];
+        while (read(client_socket, buf, 64) > 0);
         close(client_socket);
     }
+    shutdown(listen_socket, SHUT_WR);
+    char buf[64];
+    while (read(listen_socket, buf, 64) > 0);
     close(listen_socket);
     return 0;
 }
